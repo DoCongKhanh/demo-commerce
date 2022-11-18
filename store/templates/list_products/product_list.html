@@ -1,0 +1,144 @@
+<div class="container">
+    <div class="row">
+        <div class="col-xl-3 col-lg-4 col-md-5">
+            <div class="sidebar-categories">
+                <div class="head">Browse Categories</div>
+                <ul class="main-categories">						
+                    {% for categorys in category %}						
+                        <li class="main-nav-list"><a data-toggle="collapse"  href="#{{categorys.slug}}" aria-expanded="false" aria-controls="{{categorys.slug}}"><span
+                            class="lnr lnr-arrow-right"></span>{{ categorys.name }}</a>																					
+                            <ul class="collapse" id="{{categorys.slug}}" data-toggle="collapse" aria-expanded="false" aria-controls="{{categorys.slug}}">
+                                {% for item in categorys.sub_category_set.all %}
+                                    <li class="main-nav-list child"><a href="{% url 'category_detail' item.slug %}">{{ item.name }}</a></li>	
+                                {% endfor %}																			
+                            </ul>															
+                        </li>
+                    {% endfor %}
+                </ul>           
+            </div>
+            {% comment %} <div class="sidebar-categories mt-50">
+                <div class="head">Brands</div>
+                <ul class="main-categories">						
+                     {% for brands in brand %}					
+                        <li class="main-nav-list child"><a href="{% url 'brand_detail' brands.slug %}">{{ brands.name }}</a></li>
+                    {% endfor %}
+                </ul>           
+            </div>    {% endcomment %}
+            {% comment %} <div class="sidebar-filter mt-50">
+                <div class="top-filter-head">Product Filters</div>
+                <div class="common-filter">
+                    <div class="head">Brands</div>                  
+                        <ul class="main-filters"> 
+                </div>
+                <div class="common-filter">
+                    <div class="head">Color</div>
+                    <form action="#">
+                        <ul>
+                            <li class="filter-list"><input class="pixel-radio" type="radio" id="black" name="color"><label for="black">Black<span>(29)</span></label></li>
+                            <li class="filter-list"><input class="pixel-radio" type="radio" id="balckleather" name="color"><label for="balckleather">Black
+                                    Leather<span>(29)</span></label></li>
+                            <li class="filter-list"><input class="pixel-radio" type="radio" id="blackred" name="color"><label for="blackred">Black
+                                    with red<span>(19)</span></label></li>
+                            <li class="filter-list"><input class="pixel-radio" type="radio" id="gold" name="color"><label for="gold">Gold<span>(19)</span></label></li>
+                            <li class="filter-list"><input class="pixel-radio" type="radio" id="spacegrey" name="color"><label for="spacegrey">Spacegrey<span>(19)</span></label></li>
+                        </ul>
+                    </form>
+                </div> 
+                div class="common-filter">
+                    <div class="head">Price</div>
+                    <div class="price-range-area">
+                        <div id="price-range"></div>
+                        <div class="value-wrapper d-flex">
+                            <div class="price">Price:</div>
+                            <span>$</span>
+                            <div id="lower-value"></div>
+                            <div class="to">to</div>
+                            <span>$</span>
+                            <div id="upper-value"></div>
+                        </div>
+                    </div>
+                </div> 
+            </div>{% endcomment %}
+        </div>
+        <div class="col-xl-9 col-lg-8 col-md-7">
+            <!-- Start Filter Bar -->
+            <div class="filter-bar d-flex flex-wrap align-items-center">
+                <div class="sorting mr-auto">
+                    <select>
+                        <option value="1">Sorting</option>
+                        <option value="2">From Small to Big</option>
+                        <option value="3">From Big to Small</option>
+                    </select>
+				</div>
+            </div>
+            <!-- End Filter Bar -->
+
+            <!-- Start Best Seller -->
+            <section class="lattest-product-area pb-40 category-list">
+                <div class="row">
+                    {% for product in page_obj %}
+                        <!-- single product -->
+                        <div class="col-lg-4 col-md-6">
+                            <div class="single-product">
+                                {% if product.image %}
+                                    <img class="img-fluid" src="{{product.image.url}}" alt="{{ product.name }}">
+                                {% endif %}
+                                <div class="product-details">
+                                    <h6> {{ product.name }} </h6>
+                                    <div class="price">
+                                        <h6>${{ product.price }}</h6>
+                                        {% comment %} <h6 class="l-through">$210.00</h6> {% endcomment %}
+                                    </div>
+                                    <div class="prd-bottom">
+                                        <a href="{% url 'add-to-cart' product.id %}?action=addtocart" class="social-info">
+                                            <span class="ti-bag"></span>
+                                            <p class="hover-text">add to bag</p>
+                                        </a>
+                                        {% comment %} <a href="" class="social-info">
+                                            <span class="lnr lnr-heart"></span>
+                                            <p class="hover-text">Wishlist</p> 
+                                        </a>
+                                        <a href="" class="social-info">
+                                            <span class="lnr lnr-sync"></span>
+                                            <p class="hover-text">compare</p>
+                                        </a> {% endcomment %}
+                                        <a href="{% url 'product_view' product.category.slug product.slug %}" class="social-info">
+                                            <span class="lnr lnr-move"></span>
+                                            <p class="hover-text">view more</p>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}								
+                </div>
+            </section> 
+
+            <!-- End Best Seller -->
+            
+            <!-- Start Filter Bar -->
+            <div class="filter-bar d-flex flex-wrap align-items-center">         
+                <div class="pagination">
+                    {% if page_obj.has_previous %}
+                        <a href="?page={{ page_obj.previous_page_number }}" class="prev-arrow"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a>					
+                    {% endif %}
+                    {% for p in page_obj.paginator.page_range %}
+                        {% if p == page_obj.number %}
+                            <a href="?page={{p}}" class="active">{{p}}</a>
+                        {% else %}
+                            <a href="?page={{p}}">{{p}}</a>
+                        {% endif %}
+                    {% endfor %}	
+                    
+                    {% if page_obj.has_next %}
+                        
+                        <a href="?page={{ page_obj.next_page_number }}" class="next-arrow"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
+                    {% endif %}
+                </div>
+            </div>
+            <!-- End Filter Bar -->
+        </div>
+    </div>
+</div>
+
+	

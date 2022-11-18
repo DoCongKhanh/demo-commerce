@@ -1,0 +1,119 @@
+{% extends "store/main.html" %}
+{% load static  %}
+{% block title %}
+Confirmation
+{% endblock title %}
+
+{% block content %}
+
+
+
+	<!-- Start Banner Area -->
+	<section class="banner-area organic-breadcrumb">
+		<div class="container">
+			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+				<div class="col-first">
+					<h1>Confirmation</h1>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End Banner Area -->
+
+	<!--================Order Details Area =================-->
+	<section class="order_details section_gap">
+		<div class="container">
+			<h3 class="title_confirmation">Thank you. Your order has been received.</h3>
+			<div class="row order_d_inner">
+				<div class="col-lg-4">
+					<div class="details_item">
+					<h4> Customer Information </h4>
+						<ul class="list">
+							
+							<li><a href="#"><span>First Name</span> : {{order.first_name}}</a></li>
+							<li><a href="#"><span>Last Name</span> : {{order.last_name}}</a></li>
+							<li><a href="#"><span>Phone</span> : {{order.phone}}</a></li>
+							<li><a href="#"><span>Email</span> : {{order.user.email}}</a></li>
+							
+						</ul>							
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="details_item">
+						<h4>Order Info</h4>						
+						<ul class="list">
+							
+							<li><a href="#"><span>Order number</span> : {{order.id}}</a></li>								
+							<li><a href="#"><span>Total Order</span> : ${{order.total_cost}}</a></li>
+							<li><a href="#"><span>Postcode </span> : {{order.zipcode}}</a></li>
+							<li><a href="#"><span>Date</span> : {{order.created_date}}</a></li>
+							
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="details_item">
+						<h4>Shipping Address</h4>
+						<ul class="list">
+							
+							<li><a href="#"><span>Street</span> : {{order.address}}</a></li>
+							<li><a href="#"><span>District</span> : {{order.distric}}</a></li>
+							<li><a href="#"><span>City</span> : {{order.city}}</a></li>
+							
+						</ul>
+					</div>
+				</div>			
+			</div>	
+			<div class="order_details_table">
+				<h2>Order Details</h2>
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+							<tr>
+								<th scope="col">Product</th>
+								<th scope="col">Price</th>
+								<th scope="col">Quantity</th>
+								<th scope="col">Total</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for item in items %}
+								<tr>
+									<td>
+										<p>{{ item.product.name}}</p>
+									</td>
+									<td>
+										<p>${{item.product.price}}</p>
+									</td>
+									<td>
+										<h5>x {{item.quantity}}</h5>
+									</td>
+									<td>
+										<p>${{item.total_price}}</p>
+									</td>
+								</tr>											
+							{% endfor %}
+
+							<tr>
+								<td>
+								
+								</td>
+								<td>
+									<h5>Total Cost :</h5>
+								</td>
+								<td>
+									
+								</td>
+								<td>
+									<p>$ {{order.total_cost}}</p>
+								</td>
+							</tr>							
+						</tbody>
+					</table>
+				</div>
+			</div>			
+		</div>
+	</section>
+	<!--================End Order Details Area =================-->
+
+{% endblock content %}
