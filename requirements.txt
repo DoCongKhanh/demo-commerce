@@ -9,4 +9,3 @@ psycopg2==2.9.5
 sqlparse==0.4.3
 tzdata==2022.6
 whitenoise==6.2.0
-Python==3.10.2
