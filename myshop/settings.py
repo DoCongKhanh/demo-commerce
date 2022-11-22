@@ -13,8 +13,6 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 import os
 from pathlib import Path
 
-import django_heroku
-import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,9 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-qk$=er3al7i6m)_x_kg=&e+vo3et4#4y%qy3!ku6-0!+m)p#-6'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['shop-eccommerce.herokuapp.com','127.0.0.1:8000' ]
+ALLOWED_HOSTS = ['.vercel.app', '.now.sh']
 
 # chuyen page khi login va logout
 LOGIN_URL = 'login'
@@ -142,11 +140,9 @@ STATIC_URL = '/static/'
 
 # STATIC_ROOT = '/static/'
 
-STATICFILES_DIR = ( 
-    os.path.join(BASE_DIR, 'static'),
-)
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-django_heroku.settings(locals())
+STATICFILES_DIR =( os.path.join(BASE_DIR, 'static'), )
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
 
 # MEDIA_URL = '/images/'
 
