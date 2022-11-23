@@ -2,9 +2,9 @@
     "version": 2,
     "builds": [
       {
-        "src": "myshop/wsgi.py",
+        "src": "projectname/wsgi.py",
         "use": "@vercel/python",
-        "config": { "maxLambdaSize": "15mb", "runtime": "python3.10.2" }
+        "config": { "maxLambdaSize": "15mb", "runtime": "python3.10" }
       },
       {
         "src": "build_files.sh",
@@ -21,7 +21,7 @@
       },
       {
         "src": "/(.*)",
-        "dest": "myshop/wsgi.py"
+        "dest": "projectname/wsgi.py"
       }
     ]
   }
