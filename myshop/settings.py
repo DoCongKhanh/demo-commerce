@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-qk$=er3al7i6m)_x_kg=&e+vo3et4#4y%qy3!ku6-0!+m)p#-6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['.vercel.app', '.now.sh']
 
 # chuyen page khi login va logout
 LOGIN_URL = 'login'
@@ -139,7 +139,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # STATIC_ROOT = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
 
 STATICFILES_DIR = (os.path.join(BASE_DIR, 'static'),)
 
